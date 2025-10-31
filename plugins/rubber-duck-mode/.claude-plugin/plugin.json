@@ -1,6 +1,6 @@
 {
   "name": "rubber-duck-mode",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Acts as an attentive rubber duck for debugging - listens, restates problems, and asks simple clarifying questions to help you find solutions yourself",
   "author": {
     "name": "Dennis Liu",
