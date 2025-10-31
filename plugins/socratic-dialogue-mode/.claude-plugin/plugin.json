@@ -1,0 +1,10 @@
+{
+  "name": "socratic-dialogue-mode",
+  "version": "1.1.0",
+  "description": "Uses Socratic questioning to guide users to discover solutions through critical thinking rather than providing direct answers",
+  "author": {
+    "name": "Dennis Liu",
+    "email": "nossi1970@gmail.com"
+  },
+  "keywords": ["socratic", "questioning", "mentoring", "critical-thinking", "guided-learning", "coaching"]
+}

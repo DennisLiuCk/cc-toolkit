@@ -1,0 +1,10 @@
+{
+  "description": "Socratic questioning hook that guides users through discovery-based learning",
+  "hooks": {
+    "SessionStart": [
+      {
+        "command": "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh"
+      }
+    ]
+  }
+}

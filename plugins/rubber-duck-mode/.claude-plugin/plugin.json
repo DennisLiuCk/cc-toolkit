@@ -1,0 +1,10 @@
+{
+  "name": "rubber-duck-mode",
+  "version": "1.1.0",
+  "description": "Acts as an attentive rubber duck for debugging - listens, restates problems, and asks simple clarifying questions to help you find solutions yourself",
+  "author": {
+    "name": "Dennis Liu",
+    "email": "nossi1970@gmail.com"
+  },
+  "keywords": ["rubber-duck", "debugging", "listening", "metacognition", "problem-solving", "self-discovery"]
+}
