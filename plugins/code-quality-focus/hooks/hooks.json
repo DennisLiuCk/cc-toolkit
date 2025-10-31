@@ -1,0 +1,10 @@
+{
+  "description": "Code quality focus hook that emphasizes best practices and clean code",
+  "hooks": {
+    "SessionStart": [
+      {
+        "command": "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh"
+      }
+    ]
+  }
+}

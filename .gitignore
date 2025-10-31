@@ -1,0 +1,53 @@
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Node modules (if any plugin uses Node.js)
+node_modules/
+package-lock.json
+
+# Python (if any plugin uses Python)
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Local development
+.env
+.env.local
+*.local
+
+# Test coverage
+coverage/
+.coverage
+*.cover
+
+# Build outputs
+dist/
+build/
+*.egg-info/
+
+# Personal notes
+NOTES.md
+TODO.md
+.scratch/
+
+# Ignore local configuration files etc. *.local.*
+*.local.*

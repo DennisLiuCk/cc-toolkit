@@ -1,0 +1,13 @@
+{
+  "name": "dev-tools",
+  "description": "A collection of essential development tools and utilities including code review assistance, project analysis, and productivity enhancements for daily coding tasks",
+  "version": "1.0.0",
+  "author": {
+    "name": "Dennis Liu",
+    "email": "nossi1970@gmail.com"
+  },
+  "homepage": "https://github.com/DennisLiuCk/cc-toolkit",
+  "repository": "https://github.com/DennisLiuCk/cc-toolkit",
+  "license": "MIT",
+  "keywords": ["development", "productivity", "code-review", "utilities", "tools"]
+}

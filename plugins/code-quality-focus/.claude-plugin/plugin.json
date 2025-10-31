@@ -1,0 +1,10 @@
+{
+  "name": "code-quality-focus",
+  "version": "1.0.0",
+  "description": "Automatically emphasizes code quality, best practices, and clean code principles during development (uses SessionStart hook)",
+  "author": {
+    "name": "Dennis Liu",
+    "email": "nossi1970@gmail.com"
+  },
+  "keywords": ["code-quality", "best-practices", "clean-code", "refactoring", "standards"]
+}

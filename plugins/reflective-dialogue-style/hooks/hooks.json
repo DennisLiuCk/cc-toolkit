@@ -1,0 +1,10 @@
+{
+  "description": "Reflective dialogue hook that encourages conversational explanations and collaborative problem-solving",
+  "hooks": {
+    "SessionStart": [
+      {
+        "command": "${CLAUDE_PLUGIN_ROOT}/hooks-handlers/session-start.sh"
+      }
+    ]
+  }
+}

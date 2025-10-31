@@ -1,0 +1,57 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "cc-toolkit",
+  "version": "1.0.0",
+  "description": "Personal Claude Code plugin marketplace for development tools and utilities",
+  "owner": {
+    "name": "Dennis Liu",
+    "email": "nossi1970@gmail.com",
+    "url": "https://github.com/DennisLiuCk/cc-toolkit"
+  },
+  "metadata": {
+    "description": "A curated collection of personal Claude Code plugins for enhanced development workflows",
+    "version": "1.0.0",
+    "pluginRoot": "./"
+  },
+  "plugins": [
+    {
+      "name": "dev-tools",
+      "description": "Essential development tools and utilities for daily coding tasks",
+      "version": "1.0.0",
+      "author": {
+        "name": "Dennis Liu",
+        "email": "nossi1970@gmail.com"
+      },
+      "source": "./plugins/dev-tools",
+      "category": "development",
+      "keywords": ["development", "utilities", "productivity"],
+      "license": "MIT"
+    },
+    {
+      "name": "code-quality-focus",
+      "description": "Automatically emphasizes code quality, best practices, and clean code principles (SessionStart hook)",
+      "version": "1.0.0",
+      "author": {
+        "name": "Dennis Liu",
+        "email": "nossi1970@gmail.com"
+      },
+      "source": "./plugins/code-quality-focus",
+      "category": "development",
+      "keywords": ["code-quality", "best-practices", "clean-code", "SOLID", "security"],
+      "license": "MIT"
+    },
+    {
+      "name": "reflective-dialogue-style",
+      "description": "Conversational, reflective dialogue with explanations, examples, and collaborative problem-solving",
+      "version": "1.0.0",
+      "author": {
+        "name": "Dennis Liu",
+        "email": "nossi1970@gmail.com"
+      },
+      "source": "./plugins/reflective-dialogue-style",
+      "category": "productivity",
+      "keywords": ["conversational", "reflective", "dialogue", "collaborative", "teaching", "learning"],
+      "license": "MIT"
+    }
+  ]
+}
