@@ -1,6 +1,6 @@
 {
   "name": "socratic-dialogue-mode",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Uses Socratic questioning to guide users to discover solutions through critical thinking rather than providing direct answers",
   "author": {
     "name": "Dennis Liu",

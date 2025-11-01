@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "cc-toolkit",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Personal Claude Code plugin marketplace for development tools and utilities",
   "owner": {
     "name": "Dennis Liu",
@@ -10,7 +10,7 @@
   },
   "metadata": {
     "description": "A curated collection of personal Claude Code plugins for enhanced development workflows",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "pluginRoot": "./"
   },
   "plugins": [
@@ -43,7 +43,7 @@
     {
       "name": "reflective-dialogue-style",
       "description": "Conversational, reflective dialogue with explanations, examples, and collaborative problem-solving",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": {
         "name": "Dennis Liu",
         "email": "nossi1970@gmail.com"
@@ -56,7 +56,7 @@
     {
       "name": "socratic-dialogue-mode",
       "description": "Uses Socratic questioning to guide users to discover solutions through critical thinking rather than providing direct answers",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": {
         "name": "Dennis Liu",
         "email": "nossi1970@gmail.com"
@@ -69,7 +69,7 @@
     {
       "name": "rubber-duck-mode",
       "description": "Acts as an attentive rubber duck for debugging - listens, restates problems, and asks simple clarifying questions to help you find solutions yourself",
-      "version": "1.1.1",
+      "version": "1.1.2",
       "author": {
         "name": "Dennis Liu",
         "email": "nossi1970@gmail.com"

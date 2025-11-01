@@ -1,7 +1,7 @@
 {
   "description": "Rubber duck debugging hook that provides a patient, non-judgmental listening partner",
   "hooks": {
-    "SessionStart": [
+    "UserPromptSubmit": [
       {
         "hooks": [
           {
