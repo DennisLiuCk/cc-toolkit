@@ -135,6 +135,89 @@ When you figure something out through the questioning process, Claude celebrates
 /plugin enable socratic-dialogue-mode@cc-toolkit
 ```
 
+## ⚠️ Windows Users - Important Additional Setup Required
+
+**Due to known bugs in Claude Code on Windows, this plugin requires manual configuration to work properly.**
+
+### Why is this needed?
+
+Windows users are affected by two Claude Code bugs:
+1. **[Issue #9542](https://github.com/anthropics/claude-code/issues/9542)** - SessionStart hooks cause infinite hang on Windows
+2. **[Issue #10225](https://github.com/anthropics/claude-code/issues/10225)** - UserPromptSubmit hooks from plugins don't execute properly
+
+Until these are fixed, you need to manually add the hook to your settings file.
+
+### Windows Setup Steps
+
+1. **Install and enable the plugin** (as shown above)
+
+2. **Open your Claude Code settings file:**
+   ```bash
+   # Open in your editor
+   code ~/.claude/settings.json
+   # Or
+   notepad %USERPROFILE%\.claude\settings.json
+   ```
+
+3. **Add the following `hooks` configuration:**
+   ```json
+   {
+     "enabledPlugins": {
+       "socratic-dialogue-mode@cc-toolkit": true
+     },
+     "hooks": {
+       "UserPromptSubmit": [
+         {
+           "hooks": [
+             {
+               "type": "command",
+               "command": "bash C:/Users/YOUR_USERNAME/.claude/plugins/marketplaces/cc-toolkit/plugins/socratic-dialogue-mode/hooks-handlers/session-start.sh"
+             }
+           ]
+         }
+       ]
+     }
+   }
+   ```
+
+4. **Replace `YOUR_USERNAME`** with your actual Windows username
+
+5. **Save the file and restart Claude Code**
+
+### How to verify it's working
+
+After restarting Claude Code, send any message. You should see:
+- Messages in the format: `UserPromptSubmit:Callback hook success: Success`
+- Claude responding with strategic questions (🔍 🤔) instead of direct answers
+- Claude using the Socratic questioning approach
+
+If you see a Git Bash window flash briefly when submitting prompts, that's normal - the hook is executing.
+
+### Troubleshooting Windows Setup
+
+**Hook not triggering:**
+- Check that the path in `command` uses forward slashes (`/`) not backslashes (`\`)
+- Verify your username in the path is correct
+- Ensure Git Bash is installed (required for executing the .sh script)
+
+**Git Bash window keeps appearing:**
+- This is normal behavior on Windows
+- The window should disappear automatically after <1 second
+- This will be fixed when the Claude Code bugs are resolved
+
+**Still not working:**
+- Try running the command manually to test:
+  ```bash
+  bash C:/Users/YOUR_USERNAME/.claude/plugins/marketplaces/cc-toolkit/plugins/socratic-dialogue-mode/hooks-handlers/session-start.sh
+  ```
+- Check that the output is valid JSON starting with `{`
+
+### When will this be fixed?
+
+The workaround will no longer be needed once Anthropic fixes the Windows SessionStart hook issue. We're tracking these issues and will update this plugin automatically when the fixes are released.
+
+**For now, the manual `settings.json` configuration is the most reliable way to use this plugin on Windows.**
+
 ## Usage
 
 Once enabled, the plugin works automatically throughout your session. Claude will:
@@ -181,11 +264,40 @@ To temporarily disable for a specific task, use:
 
 ## Technical Details
 
-- **Plugin Type:** SessionStart Hook
+- **Plugin Type:** Hook-based (UserPromptSubmit on Windows, SessionStart on macOS/Linux)
 - **Files:**
   - `.claude-plugin/plugin.json` - Plugin metadata
-  - `hooks/hooks.json` - Hook registration
-  - `hooks-handlers/session-start.sh` - SessionStart hook implementation
+  - `hooks/hooks.json` - Hook registration (UserPromptSubmit for Windows compatibility)
+  - `hooks-handlers/session-start.sh` - Hook implementation script
+- **Platform Compatibility:**
+  - ✅ **Windows:** Requires manual `settings.json` configuration (see Windows setup section)
+  - ✅ **macOS:** Works out-of-the-box
+  - ✅ **Linux:** Works out-of-the-box
+
+### How It Works
+
+The plugin injects a comprehensive Socratic dialogue instruction set into Claude's context using Claude Code's hook system:
+
+1. **Hook Trigger:** Fires on UserPromptSubmit (when you send a message)
+2. **Script Execution:** Runs `session-start.sh` which outputs JSON with `additionalContext`
+3. **Context Injection:** Claude receives the Socratic mode instructions as system context
+4. **Behavior Change:** Claude switches from direct answers to strategic questioning
+
+The script outputs approximately 19KB of structured instructions covering:
+- Six types of Socratic questions
+- Practical application patterns
+- AskUserQuestion tool integration guidelines
+- Balancing guidance vs. direct answers
+- Dialogue structure and special techniques
+
+### Technical Limitations on Windows
+
+Due to platform-specific bugs in Claude Code:
+- **SessionStart hooks** hang indefinitely on Windows during initialization
+- **Plugin-defined UserPromptSubmit hooks** are registered but don't execute properly
+- **Workaround:** Manual configuration in `~/.claude/settings.json` bypasses both issues
+
+These are Claude Code bugs, not plugin bugs. We're tracking upstream fixes.
 
 ## Philosophy & Background
 
@@ -208,14 +320,16 @@ Developed from Socratic teaching methods and formalized by educational researche
 
 ## Troubleshooting
 
-### "I just want the answer!"
+### General Issues
+
+#### "I just want the answer!"
 
 That's totally valid. Simply say:
 > "Can you just give me the direct answer?"
 
 Claude will switch to providing direct information while still ensuring you understand the reasoning.
 
-### "The questions feel frustrating"
+#### "The questions feel frustrating"
 
 If the questioning feels like it's slowing you down rather than helping:
 
@@ -223,7 +337,7 @@ If the questioning feels like it's slowing you down rather than helping:
 2. **Request direct help** - "I'd prefer a more direct approach right now"
 3. **Disable temporarily** - `/plugin disable socratic-dialogue-mode@cc-toolkit`
 
-### "I'm not learning anything new"
+#### "I'm not learning anything new"
 
 The Socratic method works best when:
 - You're learning something new
@@ -231,6 +345,87 @@ The Socratic method works best when:
 - You want to understand "why" deeply
 
 For straightforward tasks where you already know the approach, consider disabling the plugin temporarily.
+
+### Platform-Specific Issues
+
+#### Windows: Plugin not working after installation
+
+**Symptoms:**
+- Plugin is installed and enabled
+- Claude Code starts normally
+- But Claude doesn't use Socratic questioning approach
+
+**Solution:**
+See the **[Windows Users - Important Additional Setup Required](#️-windows-users---important-additional-setup-required)** section above for manual configuration steps.
+
+**Root Cause:**
+Windows is affected by two Claude Code bugs that prevent normal plugin hook execution. The manual `settings.json` configuration bypasses these issues.
+
+#### Windows: Git Bash window flashing
+
+**Symptoms:**
+- A black Git Bash window briefly appears when you submit prompts
+- Window disappears after ~1 second
+
+**Status:**
+This is expected behavior with the Windows workaround. The window appears because the hook script is being executed.
+
+**Future:**
+This will be resolved when Anthropic fixes the underlying Claude Code bugs.
+
+#### macOS/Linux: Plugin should work normally
+
+On macOS and Linux, the plugin should work out-of-the-box with just:
+```bash
+/plugin install socratic-dialogue-mode@cc-toolkit
+/plugin enable socratic-dialogue-mode@cc-toolkit
+```
+
+If you're on macOS/Linux and the plugin doesn't work, please report this as it indicates a new issue.
+
+### Technical Debugging
+
+#### Checking if hooks are registered
+
+Start Claude Code with debug mode:
+```bash
+claude --debug 2>&1 | grep -i "hook"
+```
+
+Look for:
+- `Loading hooks from plugin: socratic-dialogue-mode` - Plugin hooks loaded
+- `Registered X hooks from Y plugins` - Hooks registered successfully
+- `Getting matching hook commands for UserPromptSubmit` - Hook matched when you send a prompt
+- `UserPromptSubmit:Callback hook success: Success` - Hook executed successfully
+
+#### Testing the hook script manually
+
+On Windows:
+```bash
+bash C:/Users/YOUR_USERNAME/.claude/plugins/marketplaces/cc-toolkit/plugins/socratic-dialogue-mode/hooks-handlers/session-start.sh
+```
+
+On macOS/Linux:
+```bash
+bash ~/.claude/plugins/marketplaces/cc-toolkit/plugins/socratic-dialogue-mode/hooks-handlers/session-start.sh
+```
+
+**Expected output:**
+- Should start with `{` (valid JSON)
+- Should contain `"hookSpecificOutput"`
+- Should contain `"additionalContext"` with the Socratic mode instructions
+
+#### Known Issues & References
+
+1. **[anthropics/claude-code#9542](https://github.com/anthropics/claude-code/issues/9542)** - Windows SessionStart hooks cause infinite hang
+   - Status: Open (Critical)
+   - Workaround: Use UserPromptSubmit hook instead
+
+2. **[anthropics/claude-code#10225](https://github.com/anthropics/claude-code/issues/10225)** - UserPromptSubmit hooks from plugins don't execute
+   - Status: Open
+   - Workaround: Define hooks in `~/.claude/settings.json` instead of plugin
+
+These issues are being tracked and will be automatically fixed in this plugin once Claude Code releases fixes.
 
 ## Examples by Use Case
 
